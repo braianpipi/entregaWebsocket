@@ -1,3 +1,4 @@
+
 const socket = io();
 const div = document.getElementById("messagesContainer");
 const btn = document.getElementById("send");
@@ -11,11 +12,11 @@ getNow = () => {
 btn.addEventListener("click", () => {
   e.preventDefault();
   const personMessage = {
-    email: email.value,
+    email: inputUser.value,
     date: getNow(),
-    message: message.value,
+    message: inputText.value,
   };
-  socket.emit("newMessage", personMessage);
+  io.sockets.emit("newMessage", personMessage);
   inputUser.value = "";
   inputText.value = "";
 });

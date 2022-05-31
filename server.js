@@ -32,7 +32,7 @@ const http = require("http");
 const httpServer = http.createServer(app);
 const io = new ioServer(httpServer);
 const morgan = require("morgan");
-const router = require("./routes/routes");
+const routes = require("./routes/routes");
 const Messages = require("./dataBaseMessages/message");
 let content = new Messages('./dataBaseMessages/message.txt')
 const PORT = 8080;
@@ -41,11 +41,11 @@ app.use(express.static(__dirname + "/views"));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/", router);
+app.use("/", routes);
 app.set("views", "./public/views");
 app.set("view engine", "ejs");
 
-// let messages = [];
+let messages = [];
 async function chat(){
   let messages = await content.getAll()
   io.sockets.emit('mensajesEnviados', messages)
@@ -65,3 +65,50 @@ io.on('connection', socket => {
 httpServer.listen(PORT, () => {
   console.log(`server on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const getChat = async ()=>{
+//   try{
+//     const res = await fetch('./dataBaseMessages/message.txt')
+//     const mess = await res.json() 
+//   }catch{
+//     console.error()
+//   }
+// }
