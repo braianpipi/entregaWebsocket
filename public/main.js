@@ -10,7 +10,7 @@ getNow = () => {
   return `${now.getHours()}:${now.getMinutes()}`;
 };
 btn.addEventListener("click", () => {
-  e.preventDefault();
+  // e.preventDefault();
   const personMessage = {
     email: inputUser.value,
     date: getNow(),

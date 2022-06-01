@@ -37,11 +37,12 @@ const Messages = require("./dataBaseMessages/message");
 let content = new Messages('./dataBaseMessages/message.txt')
 const PORT = 8080;
 // middleware
-app.use(express.static(__dirname + "/views"));
+app.use(express.static(__dirname + "/public"));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", routes);
+
 app.set("views", "./public/views");
 app.set("view engine", "ejs");
 
