@@ -11,14 +11,21 @@ getNow = () => {
 };
 btn.addEventListener("click", () => {
   // e.preventDefault();
-  const personMessage = {
-    email: inputUser.value,
-    date: getNow(),
-    message: inputText.value,
-  };
-  io.sockets.emit("newMessage", personMessage);
-  inputUser.value = "";
-  inputText.value = "";
+  if(inputUser.value.length < 6){
+      return alert("Por Favor ingresa un mail")
+  }if(inputText.value.length == 0){
+    return alert("Por favor ingresa un texto")
+  }else{
+
+    const personMessage = {
+      email: inputUser.value,
+      date: getNow(),
+      text: inputText.value,
+    };
+    socket.emit("newMessage", personMessage);
+    inputUser.value = "";
+    inputText.value = "";
+  }
 });
 
 socket.on("mensajesEnviados", (messages) => {
@@ -27,7 +34,7 @@ socket.on("mensajesEnviados", (messages) => {
       .map((message) => {
         return `<p><span class="mail">${message.email} </span>
                 <span class="fecha">[${message.date}]: </span>
-                <span class="msj">${message.message}</span></p>`;
+                <span class="msj">${message.text}</span></p>`;
       })
       .join(" ");
   } else {
